@@ -1,0 +1,50 @@
+{% extends 'online_exam/base.html' %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div style="display: flex;" class="d-inline my-2">
+
+            <h1 class="text-center">{{ user.username|capfirst }} Result Page</h1>
+            <h4 class="text-right">Total Score: {{ total_score.score__sum }}</h4>
+
+             <h4 class="text-right">Rank: {{stu_rank.Rank}}</h4>
+
+
+        </div>
+
+
+        <table class="table table-hover">
+
+            <thead>
+            <tr>
+                <th scope="col">Ques No.</th>
+                <th scope="col">Question</th>
+                <th scope="col">Your Answer</th>
+                <th scope="col">Correct Answer</th>
+                <th scope="col">Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for test in tests %}
+                <tr>
+
+                    <td>{{ test.test_question_id|striptags|safe }}</td>
+                    <td>{{ test.test_question.question|striptags|safe }}</td>
+                    <td>{{ test.test_answer|striptags|safe }}</td>
+                    <td>{{ test.correct_answer|striptags|safe }}</td>
+                    <td>{{ test.score|striptags|safe }}</td>
+
+
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+{% endblock %}

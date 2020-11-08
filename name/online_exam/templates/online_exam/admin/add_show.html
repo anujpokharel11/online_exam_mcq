@@ -1,0 +1,57 @@
+{% extends 'online_exam/admin/adminbase.html' %}
+
+{% block body %}
+<div class="container-fluid">
+  <div class = "row">
+
+    
+    <div class="col-sm-7 offset-sm-1" > 
+    <h4 class="text-center alert alert-info"> Show Students Detail </h4>
+    {% if studentshow %}
+        <table class="table table-hover" id="dtBasicExample">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">ID</th>
+              <th scope="col">User_Name</th>
+              <th scope="col">Email</th>
+              {% comment %} <th scope="col">Password</th> {% endcomment %}
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {% for stu in studentshow %}
+              <th scope="row">{{stu.id}}</th>
+              <td>{{stu.username}}</td>
+              <td>{{stu.email}}</td>
+              {% comment %} <td>{{stu.password}}</td>    {% endcomment %}
+               <td>
+                <a href="{% url 'edit' stu.id  %}" class="btn btn-warning btn-md">Edit</a>
+                <!-- To delete the data using POST method will be the secured one.  -->
+                <form action="{% url 'delete' stu.id  %}" method="POST" class="d-inline">
+                  {% csrf_token %}
+                  <input type="submit" class= "btn btn-danger" value="Delete">
+                </form>
+              </td>                 
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+            <h4 class="text-center alert alert-warning">No Records Found.</h4>
+    {% endif %}
+
+   
+    </div>
+</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+    $('#dtBasicExample').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+      });
+    </script>
+
+
+{% endblock body %}

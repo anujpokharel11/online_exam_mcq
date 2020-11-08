@@ -1,0 +1,174 @@
+{% extends 'online_exam/admin/adminbase.html' %}
+
+
+{% block body %}
+    {{ form.media }}
+    <style>
+        .correct {
+            color: green;
+            border-color: green;
+        }
+
+        .correct .cke_chrome {
+            color: green;
+            border-color: green;
+        }
+
+        .correct .cke_top {
+            border-bottom: 1px solid green;
+            background: #9ef1a8;
+        }
+    </style>
+    <div class="container" style="width: 1080px">
+        <div class="row">
+
+            <div class="col-xl-12 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">MCQ Questions</h6>
+                        <span class="font-weight-bold text-primary">Total Questions: {{total_que}}</span>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label>Question No.</label>
+                                    {{ form.question_no }}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Score</label>
+                                    {{ form.score }}
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>Order</label>
+                                    {{ form.order }}
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-md-3">
+
+                                    <label>Question</label>
+                                    <div>
+                                        {{ form.question }}
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label>Option A</label>
+                                    <div>
+
+                                        {{ form.option_1 }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Option B</label>
+                                    <div>
+                                        {{ form.option_2 }}
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Option C</label>
+                                    <div>
+                                        {{ form.option_3 }}
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Option D</label>
+                                    <div>
+                                        {{ form.option_4 }}
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4 correct">
+                                    <label>Correct Answer</label>
+                                    <div>
+                                        {{ form.correct_ans }}
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    {% block scriptis %}
+        <script>
+
+            CKEDITOR.replace('question', {
+                height: 300,
+                width:650,
+
+                toolbarGroups: [
+                    {"name": "basicstyles", "groups": ["basicstyles"]},
+                ],
+            })
+
+
+            CKEDITOR.replace('id_option_1', {
+                height: 100,
+                toolbarGroups: [
+                    {"name": "basicstyles", "groups": ["basicstyles"]},
+                ],
+            })
+            CKEDITOR.replace('id_option_2', {
+                height: 100,
+                toolbarGroups: [
+                    {"name": "basicstyles", "groups": ["basicstyles"]},
+                ],
+            })
+            CKEDITOR.replace('id_option_3', {
+                height: 100,
+                toolbarGroups: [
+                    {"name": "basicstyles", "groups": ["basicstyles"]},
+                ],
+            })
+            CKEDITOR.replace('id_option_4', {
+                height: 100,
+                toolbarGroups: [
+                    {"name": "basicstyles", "groups": ["basicstyles"]},
+                ],
+            })
+
+            CKEDITOR.replace('id_correct_ans', {
+                width: 400,
+                height: 150,
+                toolbarGroups: [
+                    {"name": "basicstyles", "groups": ["basicstyles"]},
+                ],
+            })
+
+
+        </script>
+
+
+
+    {% endblock %}
+{% endblock %}

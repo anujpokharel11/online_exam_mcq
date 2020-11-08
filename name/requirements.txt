@@ -1,0 +1,12 @@
+Django==2.2
+django-ckeditor==6.0.0
+django-js-asset==1.2.2
+django-rank-query==0.1.0
+django-simple-json-api==0.0.3
+mysqlclient==2.0.1
+Pillow==8.0.1
+pkg-resources==0.0.0
+pytz==2020.1
+simplejson==3.17.2
+sqlparse==0.4.1
+sweetify==2.0.0

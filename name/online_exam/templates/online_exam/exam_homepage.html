@@ -1,0 +1,152 @@
+{% extends 'online_exam/base.html' %}
+{% load static %}
+{% block body %}
+
+    <style>
+        p {
+            display: inline-block;
+            margin-bottom: 0;
+
+
+        }
+
+
+        label {
+            cursor: pointer;
+            margin-left: 30px;
+        }
+
+
+        input[type='radio']:after {
+            width: 15px;
+            height: 15px;
+            border-radius: 15px;
+            top: -5px;
+            left: -1px;
+            position: relative;
+            background-color: #d1d3d1;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid white;
+        }
+
+        input[type='radio']:checked:after {
+            width: 15px;
+            height: 15px;
+            border-radius: 15px;
+            top: -5px;
+            left: -1px;
+            position: relative;
+            background-color: #21e021;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid white;
+        }
+
+        .container {
+            position: relative;
+            padding: 50px;
+        }
+
+
+    </style>
+
+
+
+    {% if show == True %}
+        <div class="container">
+
+        <div class="row float-right">
+            <div style="display: flex; justify-content: space-between; font-size: 50px" class="timer"
+                 data-seconds-left=5></div>
+
+        </div>
+        <div style=" justify-content: space-between">
+            <h1>Welcome to Exam Home page.</h1>
+            <hr>
+        </div>
+
+        <div class="row">
+
+            <form action="" method="POST" id="studentTestForm">
+                {% csrf_token %}
+
+                {% for que in questions %}
+                    <input type="hidden" name="question_id" value="{{ que.id }}">
+                    <input type="hidden" name="student_id" value="{{ request.user.id }}">
+                    <input type="hidden" name="correct_ans" value="{{ que.correct_ans }}">
+
+                    <div style="display: flex">
+                        <h3>{{ que.question_no }}.</h3>
+                        <h3>{{ que.question|striptags|safe }}</h3>
+                    </div>
+                    <div style="float: right;">
+                        <strong>Score: {{ que.score }}</strong>
+
+                    </div>
+
+                    <select class="form-control" name="answer" id="answer">
+                        <option value="{{ que.option_1 }}">{{ que.option_1|striptags|safe }}</option>
+                        <option value="{{ que.option_2 }}">{{ que.option_2|striptags|safe }}</option>
+                        <option value="{{ que.option_3 }}">{{ que.option_3|striptags|safe }}</option>
+                        <option value="{{ que.option_4 }}">{{ que.option_4|striptags|safe }}</option>
+                    </select>
+
+                    <hr>
+                {% endfor %}
+
+
+
+                {#                <nav aria-label="...">#}
+                {#                    {% if page_obj.has_other_pages %}#}
+                {#                        <ul class="pagination">#}
+                {#                            {% if page_obj.has_previous %}#}
+                {#                                <li class="page-item"><a class="page-link"#}
+                {#                                                         href="?page={{ page_obj.previous_page_number }}"#}
+                {#                                                         aria-label="Previous">&laquo;</a></li>#}
+                {#                            {% else %}#}
+                {#                                <li class="disabled page-item"><a class="page-link" aria-hidden="true">&laquo;</a>#}
+                {#                                </li>#}
+                {#                            {% endif %}#}
+                {#                            {% for i in page_obj.paginator.page_range %}#}
+                {#                                {% if page_obj.number == i %}#}
+                {#                                    <li class="active page-item"><a class="page-link" aria-hidden="true">{{ i }}</a>#}
+                {#                                    </li>#}
+                {#                                {% else %}#}
+                {#                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>#}
+                {#                                {% endif %}#}
+                {#                            {% endfor %}#}
+                {#                            {% if page_obj.has_next %}#}
+                {#                                <li class="page-item"><a class="page-link"#}
+                {#                                                         href="?page={{ page_obj.next_page_number }}">&raquo;</a>#}
+                {#                                </li>#}
+                {#                            {% else %}#}
+                {#                                <li class="disabled page-item" aria-label="Next"><a class="page-link"#}
+                {#                                                                                    aria-hidden="true">&raquo;</a>#}
+                {#                                </li>#}
+                {#                            {% endif %}#}
+                {#                        </ul>#}
+                {#                    {% endif %}#}
+                {#                </nav>#}
+
+
+                <br>
+                <button class="submit btn btn-success my-3">submit</button>
+
+
+            </form>
+
+        </div>
+        <a href="{% url 'result' %}" class="form-submit">Show Result</a>
+
+    {% else %}
+        <h2 class="text-info">Exam will be start at Saturday 10:00 am. Please wait for a while!</h2>
+    {% endif %}
+
+</div>
+
+
+
+{% endblock %}

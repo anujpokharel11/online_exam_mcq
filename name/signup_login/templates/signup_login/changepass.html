@@ -1,0 +1,16 @@
+ {% extends 'signup_login/base.html'  %}
+
+{% block body %}
+    <div class="container-fluid">
+        
+<form action="" method="POST">
+    {% csrf_token %}
+    {% for fm in form %}
+        {{fm.label_tag}} <br> {{fm}} <br> {{fm.errors|striptags}}
+    {% endfor %}
+    <button type="submit" class="btn btn-success my-3">Submit</button>
+</form>
+<br><br><br><br> <br><br><br><br>
+<br><br><br><br>
+    </div>
+{% endblock %}
